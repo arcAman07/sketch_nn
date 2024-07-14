@@ -8,7 +8,7 @@ with open(os.path.join(this_directory, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name="sketch_nn",
-    version="0.1.5",  # Incremented version number
+    version="0.1.6",  # Incremented version number
     packages=find_packages(),
     install_requires=[
         "opencv-python",
