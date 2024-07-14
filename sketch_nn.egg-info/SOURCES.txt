@@ -1,0 +1,12 @@
+LICENSE
+README.md
+setup.py
+sketch_nn/__init__.py
+sketch_nn/designer.py
+sketch_nn/utils.py
+sketch_nn.egg-info/PKG-INFO
+sketch_nn.egg-info/SOURCES.txt
+sketch_nn.egg-info/dependency_links.txt
+sketch_nn.egg-info/requires.txt
+sketch_nn.egg-info/top_level.txt
+tests/test_designer.py

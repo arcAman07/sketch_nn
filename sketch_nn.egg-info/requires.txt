@@ -1,0 +1,7 @@
+opencv-python
+numpy
+pytesseract
+torch
+gradio
+fastapi
+uvicorn
