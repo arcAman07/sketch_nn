@@ -1,7 +1,7 @@
 # Sketch NN
 
 <div align="center">
-  <img src="https://github.com/arcAman07/sketch_nn/blob/master/logos/plain_logo.jpg" alt="Sketch NN Logo" width="200"/>
+  <img src="https://raw.githubusercontent.com/yourusername/sketch_nn/main/logos/sketch_nn_logo.png" alt="Sketch NN Logo" width="200"/>
   <p><em>Transform hand-drawn neural network sketches into functional PyTorch code</em></p>
 </div>
 
