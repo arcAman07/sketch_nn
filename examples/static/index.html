@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sketch NN: Neural Network Designer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .container {
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .input-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .input-section > div {
+            width: 48%;
+        }
+        #fileInput, #captureBtn, #generateBtn {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #captureBtn, #generateBtn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #captureBtn:hover, #generateBtn:hover {
+            background-color: #2980b9;
+        }
+        #video, #canvas {
+            width: 100%;
+            max-width: 400px;
+            margin-top: 10px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #ecf0f1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sketch NN: Neural Network Designer</h1>
+        <form id="uploadForm">
+            <div class="input-section">
+                <div>
+                    <input type="file" id="fileInput" accept="image/*">
+                </div>
+                <div>
+                    <button type="button" id="captureBtn">Capture from Webcam</button>
+                </div>
+            </div>
+            <video id="video" style="display:none;"></video>
+            <canvas id="canvas" style="display:none;"></canvas>
+            <button type="submit" id="generateBtn">Generate NN Code</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('uploadForm');
+        const fileInput = document.getElementById('fileInput');
+        const captureBtn = document.getElementById('captureBtn');
+        const generateBtn = document.getElementById('generateBtn');
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const result = document.getElementById('result');
+
+        let stream = null;
+
+        captureBtn.addEventListener('click', async () => {
+            if (stream) {
+                stopWebcam();
+                return;
+            }
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+                video.play();
+                video.style.display = 'block';
+                canvas.style.display = 'none';
+                captureBtn.textContent = 'Take Photo';
+            } catch (err) {
+                console.error("Error accessing the webcam", err);
+                alert("Could not access the webcam");
+            }
+        });
+
+        function stopWebcam() {
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+                stream = null;
+                video.style.display = 'none';
+                captureBtn.textContent = 'Capture from Webcam';
+            }
+        }
+
+        function takePhoto() {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            stopWebcam();
+            canvas.style.display = 'block';
+            captureBtn.textContent = 'Retake Photo';
+        }
+
+        video.addEventListener('click', takePhoto);
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData();
+            
+            if (fileInput.files.length > 0) {
+                formData.append('file', fileInput.files[0]);
+            } else if (canvas.style.display !== 'none') {
+                const imageData = canvas.toDataURL('image/png');
+                formData.append('image_data', imageData);
+            } else {
+                alert('Please upload an image or capture one from the webcam.');
+                return;
+            }
+
+            generateBtn.disabled = true;
+            generateBtn.textContent = 'Generating...';
+            result.textContent = 'Processing...';
+
+            try {
+                const response = await fetch('/generate_nn/', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'custom_nn.py';
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    result.textContent = 'Neural network code generated successfully!';
+                } else {
+                    result.textContent = 'An error occurred while generating the neural network code.';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                result.textContent = 'An error occurred. Please try again.';
+            } finally {
+                generateBtn.disabled = false;
+                generateBtn.textContent = 'Generate NN Code';
+            }
+        });
+    </script>
+</body>
+</html>
