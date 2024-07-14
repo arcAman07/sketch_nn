@@ -1,18 +1,15 @@
-# Sketch NN: Neural Network Designer
+# Sketch NN
 
-<div align="center">
-  <img src="path_to_your_logo.png" alt="Sketch NN Logo" width="200"/>
-  <h3>Design Neural Networks with a Simple Sketch</h3>
-</div>
+[Leave space here for your logo]
 
-Sketch NN is a powerful tool that allows you to design and generate PyTorch neural network code from simple flowchart sketches. With Sketch NN, you can quickly prototype complex neural architectures without writing a single line of code!
+Sketch NN is an innovative Python library that transforms hand-drawn neural network sketches into functional PyTorch code. Design your neural architectures on paper, capture them with our tool, and watch as Sketch NN brings your ideas to life!
 
 ## 🌟 Features
 
-- 📸 Upload or capture flowchart images
-- 🧠 Supports a wide range of neural network layers
-- 🔧 Generates ready-to-use PyTorch code
-- 🖥️ User-friendly Gradio web interface
+- 📸 Process hand-drawn or digital sketches of neural network architectures
+- 🧠 Support for a wide range of neural network layers
+- 🔧 Generate ready-to-use PyTorch code
+- 🖥️ User-friendly Gradio web interface for quick prototyping
 - 🚀 FastAPI backend for scalable deployment
 
 ## 🛠️ Supported Layers
@@ -27,26 +24,16 @@ Sketch NN is a powerful tool that allows you to design and generate PyTorch neur
 - Transformer
 - Multi-head Attention
 
-## 🖼️ How It Works
+## 🚀 Installation
 
-[Insert a diagram or flowchart here showing the process from sketch to code]
-
-1. Sketch your neural network architecture
-2. Upload or capture the image
-3. Sketch NN processes the image and extracts layer information
-4. PyTorch code is generated based on the extracted information
-5. Download and use the generated code in your project
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Python 3.7+
-- PyTorch
-- OpenCV
-- Tesseract OCR
-
-### Installation
+Install Sketch NN using pip:
 
 ```bash
-pip install sketch-nn
+pip install sketch_nn
+
+from sketch_nn import NeuralNetworkDesigner
+
+designer = NeuralNetworkDesigner()
+designer.process_image('path_to_your_sketch.png')
+pytorch_code = designer.generate_pytorch_code()
+designer.write_to_file(pytorch_code, 'custom_nn.py')
