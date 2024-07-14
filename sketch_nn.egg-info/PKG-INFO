@@ -1,7 +1,17 @@
+Metadata-Version: 2.1
+Name: sketch-nn
+Version: 0.1
+Summary: A tool to generate PyTorch neural network code from flowchart images
+Home-page: https://github.com/yourusername/sketch_nn
+Author: Aman Sharma
+Author-email: amananytime07@gmail.com
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
 # Sketch NN
 
 <div align="center">
-  <img src="logos/plain_logo.jpg" alt="Sketch NN Logo" width="200"/>
+  <img src="path_to_your_logo.png" alt="Sketch NN Logo" width="200"/>
   <p><em>Transform hand-drawn neural network sketches into functional PyTorch code</em></p>
 </div>
 
