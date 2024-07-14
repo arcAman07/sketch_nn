@@ -5,7 +5,7 @@ from .designer import NeuralNetworkDesigner
 from .utils import save_uploaded_file  # assuming you have this function in utils.py
 
 # You can also define the version of your package here
-__version__ = "0.1.0"
+__version__ = "0.1.2"
 
 # If you want to control what gets imported with "from sketch_nn import *"
 __all__ = ['NeuralNetworkDesigner', 'save_uploaded_file']

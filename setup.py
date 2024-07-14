@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="sketch_nn",
-    version="0.1",
+    version="0.1.2",
     packages=find_packages(),
     install_requires=[
         "opencv-python",
@@ -18,5 +18,5 @@ setup(
     description="A tool to generate PyTorch neural network code from flowchart images",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/sketch_nn",
+    url="https://github.com/arcAman07/sketch_nn",
 )
